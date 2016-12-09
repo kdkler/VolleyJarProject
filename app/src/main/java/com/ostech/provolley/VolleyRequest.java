@@ -29,7 +29,7 @@ public class VolleyRequest {
 
     public static Context _context;
 
-    public static void RequestStringGet( Context context,String url,String tag,VolleyInterface intface)
+    public static void RequestStringGet(Context context, String url, String tag, VolleyIntfcString intface)
     {
         SelfApplication.getHttpQueues().cancelAll(tag);//关闭原来的tag请求,节省资源
         strRequest=new StringRequest(Request.Method.GET,url,intface.iListener(),intface.iErrListener());
@@ -38,7 +38,7 @@ public class VolleyRequest {
         SelfApplication.getHttpQueues().start();
     }
 
-    public static void RequestStringPost(Context context, String url, String tag, VolleyInterface intface, final Map<String,String> params)
+    public static void RequestStringPost(Context context, String url, String tag,final Map<String,String> params, VolleyIntfcString intface)
     {
         SelfApplication.getHttpQueues().cancelAll(tag);
         strRequest=new StringRequest(Request.Method.POST,url,intface.iListener(),intface.iErrListener()){
@@ -52,35 +52,44 @@ public class VolleyRequest {
         SelfApplication.getHttpQueues().start();
     }
 
-    public static void RequestJsonObjGet(Context context,String url ,String tag,JSONObject jsonRequest,VolleyInterface inface)
+
+    public static void RequestJsonObjGet(Context context,String url ,String tag,VolleyIntfcObject intface)
     {
         SelfApplication.getHttpQueues().cancelAll(tag);
-        objectRequest=new JsonObjectRequest(Request.Method.GET,url, jsonRequest,inface.iListenerObject(),inface.iErrListener());
-        strRequest.setTag(tag);
-        SelfApplication.getHttpQueues().add(strRequest);
+        objectRequest=new JsonObjectRequest(Request.Method.GET,url, null,intface.iListenerObject(),intface.iErrListener());
+        objectRequest.setTag(tag);
+        SelfApplication.getHttpQueues().add(objectRequest);
         SelfApplication.getHttpQueues().start();
     }
-    public static void RequestJsonObjPost(Context context,String url,String tag,JSONObject jsonRequest,VolleyInterface inface, final Map<String,String> params)
+    public static void RequestJsonObjGet(Context context,String url ,String tag,JSONObject jsonRequest,VolleyIntfcObject intface)
     {
         SelfApplication.getHttpQueues().cancelAll(tag);
-        objectRequest=new JsonObjectRequest(Request.Method.POST,url, jsonRequest,inface.iListenerObject(),inface.iErrListener()){
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                return params;
-            }
+        objectRequest=new JsonObjectRequest(Request.Method.GET,url, jsonRequest,intface.iListenerObject(),intface.iErrListener());
+        objectRequest.setTag(tag);
+        SelfApplication.getHttpQueues().add(objectRequest);
+        SelfApplication.getHttpQueues().start();
+    }
+    public static void RequestJsonObjPost(Context context,String url,String tag,JSONObject jsonRequest,VolleyIntfcObject intface)
+    {
+        SelfApplication.getHttpQueues().cancelAll(tag);
+        objectRequest=new JsonObjectRequest(Request.Method.POST,url, jsonRequest,intface.iListenerObject(),intface.iErrListener()){
+//            @Override
+//            protected Map<String, String> getParams() throws AuthFailureError {
+//                return params;
+//            }
+            //使用StringRequest的时候需要重新getParams()方法,此时不需要重写
+            //已经经过方法的测试,这个点需要注意
         };
-        strRequest.setTag(tag);
-        SelfApplication.getHttpQueues().add(strRequest);
+        objectRequest.setTag(tag);
+        SelfApplication.getHttpQueues().add(objectRequest);
         SelfApplication.getHttpQueues().start();
     }
-    public static void RequestJsonArrayGet(Context context,String url ,String tag,VolleyInterface inface)
+    public static void RequestJsonArrayGet(Context context,String url ,String tag,VolleyIntfcArray intface)
     {
-        arrarRequest=new JsonArrayRequest(url,inface.iListenerArrary(),inface.iErrListener());
-        strRequest.setTag(tag);
-        SelfApplication.getHttpQueues().add(strRequest);
-        SelfApplication.getHttpQueues().start();
-        strRequest.setTag(tag);
-        SelfApplication.getHttpQueues().add(strRequest);
+        arrarRequest=new JsonArrayRequest(url,intface.iListenerArrary(),intface.iErrListener());
+        arrarRequest.setTag(tag);
+
+        SelfApplication.getHttpQueues().add(arrarRequest);
         SelfApplication.getHttpQueues().start();
     }
 }

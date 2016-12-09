@@ -26,6 +26,7 @@
         android:id="@+id/pbar1"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="145dp"
+        android:visibility="gone"
          />
 
 
