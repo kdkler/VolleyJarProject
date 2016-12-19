@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.selftech.timeline">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <!--网络位置-->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <!--GPS定位权限-->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+
+        <!-- android:theme="@style/AppTheme" -->
+
+        <activity
+            android:name=".MainActivity"
+            android:label="@string/app_name"
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".MainListActivity"
+            android:label="@string/title_activity_main_list"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".MainDetailActivity"
+            android:label="@string/title_activity_main_detail"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".MainEditActivity"
+            android:label="@string/title_activity_main_edit"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".MainPointListActivity"
+            android:icon="@drawable/ic_menu_share"
+            android:label="时间线详情"
+            android:logo="@drawable/ic_menu_camera"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".MainPointEditActivity"
+            android:label="@string/title_activity_main_point_edit"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".MainPointListScrollActivity"
+            android:label="@string/title_activity_main_point_list_scroll"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+
+        <!--调用微博-->
+        <activity
+            android:name="com.sina.weibo.sdk.component.WeiboSdkBrowser"
+            android:configChanges="keyboardHidden|orientation"
+            android:windowSoftInputMode="adjustResize"
+            android:exported="false" >
+        </activity>
+
+
+        <!--调用QQ-->
+        <activity
+            android:name="com.tencent.tauth.AuthActivity"
+            android:noHistory="true"
+            android:launchMode="singleTask" >
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="tencent1105774132" />
+            </intent-filter>
+        </activity>
+
+        <activity android:name="com.tencent.connect.common.AssistActivity"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            />
+
+    </application>
+
+</manifest>
